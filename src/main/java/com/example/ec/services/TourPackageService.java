@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TourPackageService {
 
-    TourPackageRepository tourPackageRepository;
+    private TourPackageRepository tourPackageRepository;
 
     @Autowired
     public TourPackageService(TourPackageRepository tourPackageRepository) {
@@ -17,8 +17,8 @@ public class TourPackageService {
 
     public TourPackage createTourPackage(String code, String name){
 
-        if(!tourPackageRepository.exists(code)){
-            tourPackageRepository.save(new TourPackage(code, name));
+        if(!tourPackageRepository.existsById(code)){
+           return tourPackageRepository.save(new TourPackage(code, name));
         }
 
         return null;

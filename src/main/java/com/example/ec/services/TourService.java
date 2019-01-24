@@ -25,10 +25,7 @@ public class TourService {
                            String duration, String bullets,
                            String keywords, String tourPackageName, Difficulty difficulty, Region region){
 
-        TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName);
-        if(tourPackage == null){
-            throw new RuntimeException("Tour package does not exist " + tourPackageName);
-        }
+        TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName).orElseThrow(() -> new RuntimeException("Tour package does not exist " + tourPackageName));
 
         return tourRepository.save(new Tour(title, description, blurb, price, duration,
                 bullets, keywords, tourPackage, difficulty, region));

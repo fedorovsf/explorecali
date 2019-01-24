@@ -6,10 +6,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+import java.util.Optional;
+
 @RepositoryRestResource(collectionResourceRel = "packages", path = "packages")
 public interface TourPackageRepository extends CrudRepository<TourPackage, String> {
 
-    TourPackage findByName(@Param("name") String name);
+    Optional<TourPackage> findByName(@Param("name") String name);
 
     @RestResource(exported = false)
     @Override
@@ -17,11 +19,11 @@ public interface TourPackageRepository extends CrudRepository<TourPackage, Strin
 
     @RestResource(exported = false)
     @Override
-    <S extends TourPackage> Iterable<S> save(Iterable<S> entities);
+    <S extends TourPackage> Iterable<S> saveAll(Iterable<S> entities);
 
     @RestResource(exported = false)
     @Override
-    void delete(String s);
+    void deleteById(String s);
 
     @RestResource(exported = false)
     @Override
@@ -29,7 +31,7 @@ public interface TourPackageRepository extends CrudRepository<TourPackage, Strin
 
     @RestResource(exported = false)
     @Override
-    void delete(Iterable<? extends TourPackage> entities);
+    void deleteAll(Iterable<? extends TourPackage> entities);
 
     @RestResource(exported = false)
     @Override
