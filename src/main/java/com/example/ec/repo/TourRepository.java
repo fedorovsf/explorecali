@@ -7,31 +7,49 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-public interface TourRepository extends PagingAndSortingRepository<Tour, Integer> {
+/**
+ * Tour Repository Interface
+ *
+ * Created by Mary Ellen Bowman
+ */
+public interface TourRepository extends PagingAndSortingRepository<Tour,Integer> {
 
-   Page<Tour> findByTourPackageCode(@Param("code") String code, Pageable pageable);
+    /**
+     * Lookup a Page of Tours associated with a TourPackage
+     *
+     * @param code the tour Package code.
+     * @param pageable details for finding the correct page.
+     * @return A page of tours if found, empty otherwise.
+     */
+    Page<Tour> findByTourPackageCode(@Param("code") String code, Pageable pageable);
 
-   @RestResource(exported = false)
+    //Not exposed by Spring Data REST
     @Override
-    <S extends Tour> S save(S entity);
-
     @RestResource(exported = false)
-    @Override
-    <S extends Tour> Iterable<S> saveAll(Iterable<S> entities);
+    <S extends Tour> S save(S s);
 
-    @RestResource(exported = false)
+    //Not exposed by Spring Data REST
     @Override
+    @RestResource(exported = false)
+    <S extends Tour> Iterable<S> saveAll(Iterable<S> iterable);
+
+    //Not exposed by Spring Data REST
+    @Override
+    @RestResource(exported = false)
     void deleteById(Integer integer);
 
-    @RestResource(exported = false)
+    //Not exposed by Spring Data REST
     @Override
-    void delete(Tour entity);
+    @RestResource(exported = false)
+    void delete(Tour tour);
 
-    @RestResource(exported = false)
+    //Not exposed by Spring Data REST
     @Override
-    void deleteAll(Iterable<? extends Tour> entities);
+    @RestResource(exported = false)
+    void deleteAll(Iterable<? extends Tour> iterable);
 
-    @RestResource(exported = false)
+    //Not exposed by Spring Data REST
     @Override
+    @RestResource(exported = false)
     void deleteAll();
 }
